@@ -239,7 +239,7 @@ inline vt_features clip(const vt_features& features,
             continue;
 
         } else {
-            clipped.emplace_back(vt_geometry::visit(geom, clipper<I>{ k1, k2 }), props, id);
+            clipped.emplace_back(vt_geometry::visit(geom, clipper<I>{ k1, k2 }), feature.indexInArray, props, id);
         }
     }
 

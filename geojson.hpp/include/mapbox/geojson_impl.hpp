@@ -162,7 +162,7 @@ feature convert<feature>(const rapidjson_value &json) {
     if (geom_itr == json_end)
         throw error("Feature must have a geometry property");
 
-    feature result{ convert<geometry>(geom_itr->value) };
+    feature result{ convert<geometry>(geom_itr->value), 0 };
 
     auto const &id_itr = json.FindMember("id");
     if (id_itr != json_end) {

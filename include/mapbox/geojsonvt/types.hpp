@@ -127,14 +127,14 @@ struct vt_geometry_type<geometry::geometry_collection<double>> {
 
 struct vt_feature {
     vt_geometry geometry;
+    size_t indexInArray;
     property_map properties;
     identifier id;
-
     mapbox::geometry::box<double> bbox = { { 2, 1 }, { -1, 0 } };
     uint32_t num_points = 0;
 
-    vt_feature(const vt_geometry& geom, const property_map& props, const identifier& id_)
-        : geometry(geom), properties(props), id(id_) {
+    vt_feature(const vt_geometry& geom, size_t indexInArray, const property_map& props, const identifier& id_)
+        : geometry(geom), indexInArray(indexInArray), properties(props), id(id_) {
 
         mapbox::geometry::for_each_point(geom, [&](const vt_point& p) {
             bbox.min.x = std::min(p.x, bbox.min.x);

@@ -27,7 +27,7 @@ struct ToFeatureCollection {
         return { value };
     }
     feature_collection operator()(const geometry& value) const {
-        return { { value } };
+        return { { value, 0 } };
     }
 };
 
