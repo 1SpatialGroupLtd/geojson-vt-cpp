@@ -224,6 +224,13 @@ geojson convert<geojson>(const rapidjson_value &json) {
 }
 
 template <class T>
+T parse(const char* json, size_t length) {
+    rapidjson_document d;
+    d.Parse(json, length);
+    return convert<T>(d);
+}
+
+template <class T>
 T parse(const std::string &json) {
     rapidjson_document d;
     d.Parse(json.c_str());
@@ -233,12 +240,26 @@ T parse(const std::string &json) {
 template <>
 geometry parse<geometry>(const std::string &);
 template <>
+geometry parse<geometry>(const char* json, size_t length);
+
+template <>
 feature parse<feature>(const std::string &);
+
+template <>
+feature parse<feature>(const char* json, size_t length);
+
 template <>
 feature_collection parse<feature_collection>(const std::string &);
 
+template <>
+feature_collection parse<feature_collection>(const char* json, size_t length);
+
 geojson parse(const std::string &json) {
     return parse<geojson>(json);
+}
+
+geojson parse(const char* json, size_t length) {
+    return parse<geojson>(json, length);
 }
 
 geojson convert(const rapidjson_value &json) {
